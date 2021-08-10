@@ -1,7 +1,7 @@
 import Header from '../components/Header'
 import Head from 'next/head'
 import Banner from '../components/Banner'
-import 'react-responsive-carousel/lib/styles/Carousel.min.css'
+import 'react-responsive-carousel/lib/styles/Carousel.css'
 import ProductFeed from '../components/ProductFeed'
 
 
