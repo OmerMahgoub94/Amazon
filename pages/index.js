@@ -3,6 +3,7 @@ import Head from 'next/head'
 import Banner from '../components/Banner'
 import 'react-responsive-carousel/lib/styles/Carousel.css'
 import ProductFeed from '../components/ProductFeed'
+<link rel="stylesheet" href="carousel.css" />
 
 
 export default function Home({ products }) {
