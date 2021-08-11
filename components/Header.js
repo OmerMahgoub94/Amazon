@@ -1,13 +1,17 @@
 import Image from 'next/image'
-
+import { signIn, signOut, useSession } from 'next-auth/client'
 
 import { SearchIcon, MenuIcon, ShoppingCartIcon } from '@heroicons/react/outline'
+import { useRouter } from 'next/dist/client/router';
 function Header() {
+    const [session] = useSession();
+    const router = useRouter();
+
     return (
         <header>
             {/* Left side (logo) */}
             <div className="flex items-center bg-amazon_blue p-1 flex-grow py-2">
-                <div className="mt-2 flex items-center flex-grow sm:flex-grow-0">
+                <div onClick={() => router.push('/')} className="mt-2 flex items-center flex-grow sm:flex-grow-0">
                     <Image src="https://links.papareact.com/f90"
                         width={150}
                         height={40}
@@ -26,8 +30,8 @@ function Header() {
 
                 {/* Right Side */}
                 <div className="text-white flex items-center text-xs md:text-sm space-x-6 mx-4 whitespace-nowrap ">
-                    <div className="link">
-                        <p>Hello Omer</p>
+                    <div onClick={session ? signOut : signIn} className="link">
+                        <p>Hello, {session ? session?.user.name : "Sign in"}</p>
                         <p className="font-extrabold">Account & Lists</p>
                     </div>
 
@@ -36,7 +40,7 @@ function Header() {
                         <p className="font-extrabold">& Orders</p>
                     </div>
 
-                    <div className="relative flex items-center link">
+                    <div onClick={() => router.push('/checkout')} className="relative flex items-center link">
                         <span className="absolute top-0 right-0 bg-yellow-400 rounded-full text-center text-black font-bold px-1">0</span>
                         <ShoppingCartIcon className="h-10" />
                         {/* <p className="font-extrabold hidden md:inline">Basket</p> */}

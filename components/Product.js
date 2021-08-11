@@ -22,7 +22,7 @@ function Product({ id, title, price, description, category, image }) {
 
             <div className="flex text-yellow-500">
                 {Array(rating).fill().map((_, i) => (
-                    <StarIcon className="h-5" />
+                    <StarIcon key={i} className="h-5" />
                 ))}
             </div>
 
