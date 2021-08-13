@@ -4,6 +4,7 @@ import Banner from '../components/Banner'
 import ProductFeed from '../components/ProductFeed'
 
 
+
 export default function Home({ products }) {
   return (
     <div className="bg-gray-100">
@@ -18,6 +19,7 @@ export default function Home({ products }) {
 
 
         {/* Product Feed */}
+
         <ProductFeed products={products} />
 
       </main>

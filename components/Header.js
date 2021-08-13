@@ -3,9 +3,12 @@ import { signIn, signOut, useSession } from 'next-auth/client'
 
 import { SearchIcon, MenuIcon, ShoppingCartIcon } from '@heroicons/react/outline'
 import { useRouter } from 'next/dist/client/router';
+import { useSelector } from 'react-redux';
+import { selectItems } from '../slices/basketSlice';
 function Header() {
     const [session] = useSession();
     const router = useRouter();
+    const basket = useSelector(selectItems);
 
     return (
         <header>
@@ -41,7 +44,10 @@ function Header() {
                     </div>
 
                     <div onClick={() => router.push('/checkout')} className="relative flex items-center link">
-                        <span className="absolute top-0 right-0 bg-yellow-400 rounded-full text-center text-black font-bold px-1">0</span>
+                        <span className="absolute top-0 right-0 bg-yellow-400 rounded-full 
+                        text-center text-black font-bold px-1">
+                            {basket.length}
+                        </span>
                         <ShoppingCartIcon className="h-10" />
                         {/* <p className="font-extrabold hidden md:inline">Basket</p> */}
                     </div>
