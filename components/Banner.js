@@ -11,7 +11,7 @@ function Banner() {
                 infiniteLoop
                 showStatus={false}
                 showArrows={false}
-                showIndicators={true}
+                showIndicators={false}
                 showThumbs={false}
                 interval={5000}
             >

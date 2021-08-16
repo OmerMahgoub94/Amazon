@@ -2,10 +2,6 @@ import Image from 'next/image'
 import { useEffect } from 'react';
 import Product from './Product'
 function ProductFeed({ products }) {
-    useEffect(() => {
-        const timeout = setTimeout(() => setDelayed(false), 2000);
-        return () => clearTimeout(timeout);
-    }, []);
 
     return (
         <div className="grid grid-flow-row-dense md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5: md:-mt-52 mx-auto">
