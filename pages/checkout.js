@@ -4,12 +4,35 @@ import { useSelector } from "react-redux";
 import { selectBasketTotal, selectItems } from "../slices/basketSlice";
 import CheckoutProduct from "../components/CheckoutProduct";
 import Currency from 'react-currency-formatter';
-import { useSession } from "next-auth/client";
+import { getSession, useSession } from "next-auth/client";
+import { loadStripe } from "@stripe/stripe-js";
+import axios from "axios";
 
-function Checkout({ img }) {
+const stripePromise = loadStripe(process.env.stripe_public_key);
+
+function Checkout() {
+
     const basket = useSelector(selectItems);
     const [session] = useSession();
     const basketTotal = useSelector(selectBasketTotal);
+
+    const createCheckoutSession = async () => {
+
+        const stripe = await stripePromise;
+        const checkoutSession = await axios.post('/api/create-checkout-session', {
+            basket,
+            email: session.user.email
+        })
+
+        // Redirect user to stripe checkout page
+        const result = await stripe.redirectToCheckout({
+            sessionId: checkoutSession.data.id
+        })
+
+        if (result.error) {
+            alert(result.error.message)
+        }
+    }
 
     return (
         <div className="bg-gray-100">
@@ -37,11 +60,13 @@ function Checkout({ img }) {
                         <>
                             <h2 className="whitespace-nowrap">Subtotal ({basket.length}) items: {" "}
                                 <span className="font-bold">
-                                    <Currency quantity={basketTotal} currency="QAR" />
+                                    <Currency quantity={basketTotal} currency="USD" />
                                 </span>
                             </h2>
 
-                            <button disabled={!session}
+                            <button role="link"
+                                disabled={!session}
+                                onClick={createCheckoutSession}
                                 className={`button mt-2 ${!session &&
                                     "from-gray-300 to-gray-500 border-gray-200 text-gray-300 cursor-not-allowed "
                                     }`}
@@ -58,3 +83,14 @@ function Checkout({ img }) {
 }
 
 export default Checkout
+
+export async function getServerSideProps(context) {
+    const session = await getSession(context);
+
+    return {
+        props: {
+            session
+
+        }
+    }
+}

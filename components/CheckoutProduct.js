@@ -33,7 +33,7 @@ function CheckoutProduct({ product: { id, title, price, description, category, i
                     {description}
                 </p>
 
-                <Currency quantity={price} currency='QAR' />
+                <Currency quantity={price} currency='USD' />
 
 
 
