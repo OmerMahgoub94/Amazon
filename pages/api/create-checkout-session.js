@@ -6,7 +6,7 @@ export default async (req, res) => {
         description: item.description,
         quantity: 1,
         price_data: {
-            currency: 'JPY',
+            currency: 'GBP',
             unit_amount: item.price * 100,
             product_data: {
                 name: item.title,
@@ -15,28 +15,25 @@ export default async (req, res) => {
         }
     }))
 
-    try {
 
 
 
-        const session = await stripe.checkout.sessions.create({
-            payment_method_types: ["card"],
-            shipping_rates: ['shr_1JPrsbITcDOr0HWodyeVBT4e'],
-            shipping_address_collection: {
-                allowed_countries: ['GB', 'US', 'CA', 'QA']
-            },
-            line_items: items,
-            mode: 'payment',
-            success_url: `${process.env.HOST}/success`,
-            cancel_url: `${process.env.HOST}/`,
-            metadata: {
-                email,
-                images: JSON.stringify(basket.map(item => item.image))
-            }
-        });
-    } catch (e) {
-        console.log("ERROR", e)
-    }
+    const session = await stripe.checkout.sessions.create({
+        payment_method_types: ["card"],
+        shipping_rates: ['shr_1JPrsbITcDOr0HWodyeVBT4e'],
+        shipping_address_collection: {
+            allowed_countries: ['GB', 'US', 'CA', 'QA']
+        },
+        line_items: items,
+        mode: 'payment',
+        success_url: `${process.env.HOST}/success`,
+        cancel_url: `${process.env.HOST}/`,
+        metadata: {
+            email,
+            images: JSON.stringify(basket.map(item => item.image))
+        }
+    });
+
 
     res.status(200).json({ id: session.id })
 }
