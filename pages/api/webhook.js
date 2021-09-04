@@ -9,6 +9,7 @@ const app = !admin.apps.length
     })
     : admin.app();
 
+
 // Establish connection to Stripe
 const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY);
 

@@ -8,7 +8,7 @@ function Product({ id, title, price, description, category, image }) {
     const MAX_RATING = 5;
     const MIN_RATING = 1;
     const [rating] = useState(
-        Math.floor(Math.random() * (MAX_RATING - MIN_RATING) + MIN_RATING)
+        Math.floor(Math.random() * (MAX_RATING - MIN_RATING) + 1)
     );
     const dispatch = useDispatch();
 

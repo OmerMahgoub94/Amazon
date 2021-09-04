@@ -7,7 +7,9 @@
     "lint": "eslint ./"
   },
   "dependencies": {
+    "@badrap/bar-of-progress": "^0.1.2",
     "@heroicons/react": "^1.0.3",
+    "@loadable/component": "^5.15.0",
     "@reduxjs/toolkit": "^1.6.1",
     "@stripe/stripe-js": "^1.17.0",
     "@tailwindcss/line-clamp": "^0.2.1",
